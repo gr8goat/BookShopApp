@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Markup;
 using System.Xml.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -51,12 +52,26 @@ namespace BookShopApp
 
                 createTable.ExecuteReader();
 
+                // Create PurchaseOrders Table
+
+                tableCommand = "CREATE TABLE IF NOT " +
+                     "EXISTS PurchaseOrders(Order_Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                     "Customer_Id INTEGER NOT NULL, Total_Price DOUBLE NOT NULL, " +
+                     " Purchase_Date datetime NOT NULL, " +
+                     " FOREIGN KEY(Customer_Id) REFERENCES Customers(Customer_Id));";
+
+                createTable = new SqliteCommand(tableCommand, db);
+
+                createTable.ExecuteReader();
+
                 // Create Transactions Table
                 tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS Transactions (ISBN NVARCHAR(64) NOT NULL, " +
+                    "EXISTS Transactions (Order_Id INTEGER PRIMARY KEY, " +
+                    "ISBN NVARCHAR(64) NOT NULL, " +
                     "Customer_Id INTEGER NOT NULL, " +
                     "Quantity INTEGER NOT NULL, " +
                     "Total_Price DOUBLE NOT NULL, " +
+                    "FOREIGN KEY (Order_Id) REFERENCES PurchaseOrders (Order_Id), " +
                     "FOREIGN KEY (ISBN) REFERENCES Books (ISBN), " +
                     "FOREIGN KEY (Customer_Id) REFERENCES Customers (Customer_Id));";
 

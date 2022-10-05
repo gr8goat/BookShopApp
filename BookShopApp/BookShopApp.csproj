@@ -132,6 +132,12 @@
     <Compile Include="BookEditForm.Designer.cs">
       <DependentUpon>BookEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BookFinderFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookFinderFrom.Designer.cs">
+      <DependentUpon>BookFinderFrom.cs</DependentUpon>
+    </Compile>
     <Compile Include="BooksManageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,12 @@
     </Compile>
     <Compile Include="CustomerEditForm.Designer.cs">
       <DependentUpon>CustomerEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerFinderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerFinderForm.Designer.cs">
+      <DependentUpon>CustomerFinderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomersManageForm.cs">
       <SubType>Form</SubType>
@@ -181,11 +193,17 @@
     <EmbeddedResource Include="BookEditForm.resx">
       <DependentUpon>BookEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BookFinderFrom.resx">
+      <DependentUpon>BookFinderFrom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BooksManageForm.resx">
       <DependentUpon>BooksManageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerEditForm.resx">
       <DependentUpon>CustomerEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerFinderForm.resx">
+      <DependentUpon>CustomerFinderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomersManageForm.resx">
       <DependentUpon>CustomersManageForm.cs</DependentUpon>
