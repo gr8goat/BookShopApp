@@ -94,6 +94,7 @@
             this.purchaseGridView.Name = "purchaseGridView";
             this.purchaseGridView.Size = new System.Drawing.Size(740, 277);
             this.purchaseGridView.TabIndex = 10;
+            this.purchaseGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.purchaseGridView_CellClick);
             // 
             // ISBN
             // 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,12 @@ namespace BookShopApp
 {
     public partial class PurchaseForm : Form
     {
-        int totalBooksNumber;
+        Hashtable books = new Hashtable();
+        int bookIndex = 0;
         public PurchaseForm()
         {
             InitializeComponent();
+            this.totalPriceTextbox.Text = "0";
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -45,22 +48,15 @@ namespace BookShopApp
 
         private void addItemBtn_Click(object sender, EventArgs e)
         {
-            //BookFinderFrom bookFinderFrom = new BookFinderFrom();
-            //bookFinderFrom.ShowDialog();
-
             using (var form = new BookFinderFrom())
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    string bookISBN = form.ISBN;            //values preserved after close
-                    string bookTitle = form.Title;
-                    double bookPrice = form.Price;
-                    int bookQuantity = form.Quantity;
-                    double bookTotalPrice = form.TotalPrice;
-
-                    purchaseGridView.Rows.Add(bookISBN, bookTitle, bookPrice, bookQuantity, bookTotalPrice);
-                    this.totalBooksNumber++;
+                    Book book = new Book(form.ISBN, form.Title, form.Price, form.Quantity, form.TotalPrice, bookIndex);
+                    books.Add($"book{bookIndex}" ,book);
+                    bookIndex++;
+                    purchaseGridView.Rows.Add(book.ISBN, book.Title, book.Price, book.Quantity, book.TotalPrice);
                     UpdateTotalPrice();
                 }
             }
@@ -68,31 +64,39 @@ namespace BookShopApp
 
         private void UpdateTotalPrice()
         {
+            ICollection collection = books.Keys;
             double sum = 0;
-            for (int i = 0; i < this.totalBooksNumber; i++)
+            foreach (var key in collection)
             {
-                double bookPrice = Double.Parse(purchaseGridView.Rows[i].Cells[4].Value.ToString());
-                sum += bookPrice;
-                i++;
+                Book book = (Book)books[key];
+                double price = book.TotalPrice;
+                sum += price;
             }
             totalPriceTextbox.Text = sum.ToString();
         }
 
-
+        private void purchaseGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            /// If delete button is clicked
+            if (e.ColumnIndex == 6 && e.RowIndex >= 0)
+            {
+                var confirmResult = MessageBox.Show("Are you sure to delete this item ??",
+                                     "Confirm Delete!!",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    // If 'Yes', delete book.
+                    purchaseGridView.Rows.RemoveAt(e.RowIndex);
+                    books.Remove("book" + e.RowIndex);
+                    UpdateTotalPrice();
+                }
+                else
+                {
+                    // If 'No', do nothing.
+                }
+            }
+        }
     }
 
-    public static class Buyer
-    { 
-        public static string Name { get; set; }
-        public static int Id { get; set; }
-    }
-
-    public static class WantedBook<Book> 
-    {
-        public static string ISBN { get; set; }
-        public static string Title { get; set; }
-        public static double Price { get; set; }
-        public static int Quantity { get; set; }
-    }
 
 }
