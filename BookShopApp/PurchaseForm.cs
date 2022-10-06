@@ -13,8 +13,8 @@ namespace BookShopApp
 {
     public partial class PurchaseForm : Form
     {
-        Hashtable books = new Hashtable();
-        int bookIndex = 0;
+        List<Book> books = new List<Book>();
+        string thisFormTable = "PurchaseOrders";
         public PurchaseForm()
         {
             InitializeComponent();
@@ -53,9 +53,9 @@ namespace BookShopApp
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    Book book = new Book(form.ISBN, form.Title, form.Price, form.Quantity, form.TotalPrice, bookIndex);
-                    books.Add($"book{bookIndex}" ,book);
-                    bookIndex++;
+                    Book book = new Book(form.ISBN, form.Title, form.Price, form.Quantity, form.TotalPrice);
+                    //books.Add($"book{bookIndex}" ,book);
+                    books.Add(book);
                     purchaseGridView.Rows.Add(book.ISBN, book.Title, book.Price, book.Quantity, book.TotalPrice);
                     UpdateTotalPrice();
                 }
@@ -64,11 +64,10 @@ namespace BookShopApp
 
         private void UpdateTotalPrice()
         {
-            ICollection collection = books.Keys;
             double sum = 0;
-            foreach (var key in collection)
+            foreach (var book in books)
             {
-                Book book = (Book)books[key];
+                //Book book = (Book)books[key];
                 double price = book.TotalPrice;
                 sum += price;
             }
@@ -87,7 +86,7 @@ namespace BookShopApp
                 {
                     // If 'Yes', delete book.
                     purchaseGridView.Rows.RemoveAt(e.RowIndex);
-                    books.Remove("book" + e.RowIndex);
+                    books.RemoveAt(e.RowIndex);
                     UpdateTotalPrice();
                 }
                 else
@@ -95,6 +94,30 @@ namespace BookShopApp
                     // If 'No', do nothing.
                 }
             }
+
+            /// If edit button is clicked
+            if (e.ColumnIndex == 5 && e.RowIndex >= 0)
+            {
+                using (var form = new PurchaseEditForm())
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        books[e.RowIndex].Quantity = form.Quantity;
+                        books[e.RowIndex].TotalPrice = books[e.RowIndex].Quantity * books[e.RowIndex].Price;
+                        purchaseGridView.Rows[e.RowIndex].Cells[3].Value = books[e.RowIndex].Quantity;
+                        purchaseGridView.Rows[e.RowIndex].Cells[4].Value = books[e.RowIndex].TotalPrice;
+                        UpdateTotalPrice();
+                    }
+                }
+            }
+        }
+
+        private void purchaseBtn_Click(object sender, EventArgs e)
+        {
+            Order order = new Order(int.Parse(customerIdTextbox.Text), double.Parse(totalPriceTextbox.Text));
+            DataAccess.MakeOrder(thisFormTable, order, books);
+            MessageBox.Show("OK");
         }
     }
 

@@ -88,6 +88,7 @@
             this.Controls.Add(this.booksManageBtn);
             this.Controls.Add(this.customerManageBtn);
             this.Name = "MainMenuForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MainMenuForm";
             this.ResumeLayout(false);
 

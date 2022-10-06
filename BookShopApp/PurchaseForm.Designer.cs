@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.customerSearchBtn = new System.Windows.Forms.Button();
             this.customerIdTextbox = new System.Windows.Forms.TextBox();
             this.customerNameTextbox = new System.Windows.Forms.TextBox();
@@ -132,18 +132,18 @@
             // 
             // Edit
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "EDIT";
-            this.Edit.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = "EDIT";
+            this.Edit.DefaultCellStyle = dataGridViewCellStyle3;
             this.Edit.HeaderText = "Edit";
             this.Edit.Name = "Edit";
             this.Edit.Text = "EDIT";
             // 
             // Delete
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = "DELETE";
-            this.Delete.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = "DELETE";
+            this.Delete.DefaultCellStyle = dataGridViewCellStyle4;
             this.Delete.HeaderText = "Delete";
             this.Delete.Name = "Delete";
             this.Delete.Text = "DELETE";
@@ -168,6 +168,7 @@
             this.purchaseBtn.TabIndex = 12;
             this.purchaseBtn.Text = "สั่งซื้อ";
             this.purchaseBtn.UseVisualStyleBackColor = true;
+            this.purchaseBtn.Click += new System.EventHandler(this.purchaseBtn_Click);
             // 
             // cancelBtn
             // 
@@ -225,6 +226,7 @@
             this.Controls.Add(this.customerSearchBtn);
             this.Controls.Add(this.customerIdTextbox);
             this.Name = "PurchaseForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "สั่งซื้อสินค้า";
             ((System.ComponentModel.ISupportInitialize)(this.purchaseGridView)).EndInit();
             this.ResumeLayout(false);

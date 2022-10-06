@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ using System.Windows.Markup;
 using System.Xml.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls.Primitives;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace BookShopApp
@@ -275,6 +277,60 @@ namespace BookShopApp
 
                 db.Close();
             }
+        }
+
+        public static void MakeOrder(string table, Order order, List<Book> books)
+        {
+
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "bookStoreDb.db");
+            using (SqliteConnection db =
+              new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                SqliteCommand insertCommand = new SqliteCommand();
+                insertCommand.Connection = db;
+
+                // Use parameterized query to prevent SQL injection attacks
+                insertCommand.CommandText = "INSERT INTO PurchaseOrders (Customer_Id, Total_Price, Purchase_Date) VALUES " +
+                    "(@CustomerId, @TotalPrice, @DateTime);";
+                insertCommand.Parameters.AddWithValue("@CustomerId", order.CustomerID);
+                insertCommand.Parameters.AddWithValue("@TotalPrice", order.TotalPrice);
+                insertCommand.Parameters.AddWithValue("@DateTime", DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"));
+                insertCommand.ExecuteReader();
+
+
+                SqliteCommand selectCommand = new SqliteCommand($"SELECT * from {table} ORDER BY Order_Id DESC LIMIT 1;", db);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+
+                string orderId = "";
+                while (query.Read())
+                {
+                    orderId = query.GetString(0);
+                }
+
+                SqliteCommand transactionsInsertCommand = new SqliteCommand();
+                transactionsInsertCommand.Connection = db;
+
+                foreach (Book book in books)
+                {
+                    transactionsInsertCommand.CommandText = "INSERT INTO Transactions (Order_Id, ISBN, Customer_Id, Quantity, Total_Price) VALUES " +
+                        "(@OrderId, @ISBN, @CustomerId, @Quantity, @TotalPrice);";
+                    transactionsInsertCommand.Parameters.AddWithValue("@OrderId", orderId);
+                    transactionsInsertCommand.Parameters.AddWithValue("@ISBN", book.ISBN);
+                    transactionsInsertCommand.Parameters.AddWithValue("@CustomerId", order.CustomerID);
+                    transactionsInsertCommand.Parameters.AddWithValue("@Quantity", book.Quantity);
+                    transactionsInsertCommand.Parameters.AddWithValue("@TotalPrice", book.TotalPrice);
+                    transactionsInsertCommand.ExecuteReader();
+                }
+
+                db.Close();
+            }
+
+
+
         }
 
     }

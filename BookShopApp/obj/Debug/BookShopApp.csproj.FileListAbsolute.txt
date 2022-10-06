@@ -52,3 +52,4 @@ C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.addBoo
 C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.BookEditForm.resources
 C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.CustomerFinderForm.resources
 C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.BookFinderFrom.resources
+C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.PurchaseEditForm.resources
