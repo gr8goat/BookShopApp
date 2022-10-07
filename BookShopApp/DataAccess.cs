@@ -59,7 +59,7 @@ namespace BookShopApp
                 tableCommand = "CREATE TABLE IF NOT " +
                      "EXISTS PurchaseOrders(Order_Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                      "Customer_Id INTEGER NOT NULL, Total_Price DOUBLE NOT NULL, " +
-                     " Purchase_Date datetime NOT NULL, " +
+                     " Purchase_Date NVARCHAR(64) NOT NULL, " +
                      " FOREIGN KEY(Customer_Id) REFERENCES Customers(Customer_Id));";
 
                 createTable = new SqliteCommand(tableCommand, db);
