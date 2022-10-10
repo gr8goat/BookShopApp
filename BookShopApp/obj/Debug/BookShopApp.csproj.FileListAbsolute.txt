@@ -53,3 +53,4 @@ C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.BookEd
 C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.CustomerFinderForm.resources
 C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.BookFinderFrom.resources
 C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.PurchaseEditForm.resources
+C:\Users\Great\source\repos\BookShopApp\BookShopApp\obj\Debug\BookShopApp.OrderManageForm.resources

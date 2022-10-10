@@ -47,5 +47,11 @@ namespace BookShopApp
             LoginForm loginForm = new LoginForm();
             loginForm.showForm();
         }
+
+        private void orderViewerBtn_Click(object sender, EventArgs e)
+        {
+            OrderManageForm orderManageForm = new OrderManageForm();
+            orderManageForm.ShowDialog();
+        }
     }
 }

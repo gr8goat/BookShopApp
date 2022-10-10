@@ -145,15 +145,31 @@ namespace BookShopApp
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand
-                    ($"SELECT * from {table}", db);
-
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
+                if ( table == "PurchaseOrders" )
                 {
-                    string formatedString = String.Concat(query.GetString(0),",",query.GetString(1),",",query.GetString(2),",",query.GetString(3));
-                    entries.Add(formatedString);
+                    SqliteCommand selectCommand = new SqliteCommand
+                            ("SELECT PurchaseOrders.Order_Id, PurchaseOrders.Customer_Id, Transactions.ISBN, Books.Title, Transactions.Quantity, Transactions.Total_Price\r\nFROM PurchaseOrders\r\nINNER JOIN Transactions ON PurchaseOrders.Order_Id = Transactions.Order_Id\r\nINNER JOIN Books", db);
+
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        string formatedString = String.Concat(query.GetString(0), ",", query.GetString(1), ",", query.GetString(2), ",", query.GetString(3), ",", query.GetString(4), ",", query.GetString(5));
+                        entries.Add(formatedString);
+                    }
+                }
+                else
+                {
+                    SqliteCommand selectCommand = new SqliteCommand
+                        ($"SELECT * from {table}", db);
+
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        string formatedString = String.Concat(query.GetString(0), ",", query.GetString(1), ",", query.GetString(2), ",", query.GetString(3));
+                        entries.Add(formatedString);
+                    }
                 }
 
                 db.Close();
@@ -215,6 +231,42 @@ namespace BookShopApp
 
             return entries;
         }
+
+        public static List<String> GetSearchOrderData(string table, string searchOption, string value)
+        {
+            List<String> entries = new List<String>();
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "bookStoreDb.db");
+            using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                        ($"SELECT PurchaseOrders.Order_Id, PurchaseOrders.Customer_Id, Transactions.ISBN, Books.Title, Transactions.Quantity, Transactions.Total_Price\r\nFROM PurchaseOrders \r\nINNER JOIN Transactions ON PurchaseOrders.Order_Id = Transactions.Order_Id\r\nINNER JOIN Books\r\nWHERE PurchaseOrders.{searchOption} = {value}", db);
+
+                try
+                {
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+                    while (query.Read())
+                    {
+                        string formatedString = String.Concat(query.GetString(0), ",", query.GetString(1), ",", query.GetString(2), ",", query.GetString(3), ",", query.GetString(4), ",", query.GetString(5));
+                        entries.Add(formatedString);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    MessageBox.Show("กรุณาตรวจสอบข้อมูลที่ใช้ค้นหา");
+                }
+
+
+                db.Close();
+
+            }
+
+            return entries;
+        }
+
 
         public static void DeleteData(string table, string primaryKey)
         {
@@ -316,17 +368,12 @@ namespace BookShopApp
 
                 foreach (Book book in books)
                 {
+                    db.Open();
                     transactionsInsertCommand.CommandText = "INSERT INTO Transactions (Order_Id, ISBN, Customer_Id, Quantity, Total_Price) VALUES " +
-                        "(@OrderId, @ISBN, @CustomerId, @Quantity, @TotalPrice);";
-                    transactionsInsertCommand.Parameters.AddWithValue("@OrderId", orderId);
-                    transactionsInsertCommand.Parameters.AddWithValue("@ISBN", book.ISBN);
-                    transactionsInsertCommand.Parameters.AddWithValue("@CustomerId", order.CustomerID);
-                    transactionsInsertCommand.Parameters.AddWithValue("@Quantity", book.Quantity);
-                    transactionsInsertCommand.Parameters.AddWithValue("@TotalPrice", book.TotalPrice);
-                    transactionsInsertCommand.ExecuteReader();
+                                                $"({orderId}, {book.ISBN}, {order.CustomerID}, {book.Quantity}, {book.TotalPrice});";
+                    db.Close();
                 }
 
-                db.Close();
             }
 
 

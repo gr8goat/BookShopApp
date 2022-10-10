@@ -117,8 +117,10 @@ namespace BookShopApp
         {
             Order order = new Order(int.Parse(customerIdTextbox.Text), double.Parse(totalPriceTextbox.Text));
             DataAccess.MakeOrder(thisFormTable, order, books);
-            MessageBox.Show("OK");
+            MessageBox.Show("สั่งซื้อสำเร็จ");
+            this.Close();
         }
+
     }
 
 

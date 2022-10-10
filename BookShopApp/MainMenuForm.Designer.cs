@@ -32,12 +32,13 @@
             this.booksManageBtn = new System.Windows.Forms.Button();
             this.booksPurchaseBtn = new System.Windows.Forms.Button();
             this.logoutBtn = new System.Windows.Forms.Button();
+            this.orderViewerBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // customerManageBtn
             // 
             this.customerManageBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customerManageBtn.Location = new System.Drawing.Point(71, 183);
+            this.customerManageBtn.Location = new System.Drawing.Point(173, 112);
             this.customerManageBtn.Name = "customerManageBtn";
             this.customerManageBtn.Size = new System.Drawing.Size(206, 76);
             this.customerManageBtn.TabIndex = 0;
@@ -48,7 +49,7 @@
             // booksManageBtn
             // 
             this.booksManageBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.booksManageBtn.Location = new System.Drawing.Point(296, 183);
+            this.booksManageBtn.Location = new System.Drawing.Point(398, 112);
             this.booksManageBtn.Name = "booksManageBtn";
             this.booksManageBtn.Size = new System.Drawing.Size(206, 76);
             this.booksManageBtn.TabIndex = 1;
@@ -59,7 +60,7 @@
             // booksPurchaseBtn
             // 
             this.booksPurchaseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.booksPurchaseBtn.Location = new System.Drawing.Point(521, 183);
+            this.booksPurchaseBtn.Location = new System.Drawing.Point(173, 215);
             this.booksPurchaseBtn.Name = "booksPurchaseBtn";
             this.booksPurchaseBtn.Size = new System.Drawing.Size(206, 76);
             this.booksPurchaseBtn.TabIndex = 2;
@@ -78,11 +79,23 @@
             this.logoutBtn.UseVisualStyleBackColor = true;
             this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
+            // orderViewerBtn
+            // 
+            this.orderViewerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.orderViewerBtn.Location = new System.Drawing.Point(398, 215);
+            this.orderViewerBtn.Name = "orderViewerBtn";
+            this.orderViewerBtn.Size = new System.Drawing.Size(206, 76);
+            this.orderViewerBtn.TabIndex = 5;
+            this.orderViewerBtn.Text = "ตรวจสอบรายการสั่งซื้อ";
+            this.orderViewerBtn.UseVisualStyleBackColor = true;
+            this.orderViewerBtn.Click += new System.EventHandler(this.orderViewerBtn_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.orderViewerBtn);
             this.Controls.Add(this.logoutBtn);
             this.Controls.Add(this.booksPurchaseBtn);
             this.Controls.Add(this.booksManageBtn);
@@ -100,5 +113,6 @@
         private System.Windows.Forms.Button booksManageBtn;
         private System.Windows.Forms.Button booksPurchaseBtn;
         private System.Windows.Forms.Button logoutBtn;
+        private System.Windows.Forms.Button orderViewerBtn;
     }
 }

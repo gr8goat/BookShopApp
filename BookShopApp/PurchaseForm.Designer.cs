@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.customerSearchBtn = new System.Windows.Forms.Button();
             this.customerIdTextbox = new System.Windows.Forms.TextBox();
             this.customerNameTextbox = new System.Windows.Forms.TextBox();
@@ -46,7 +46,6 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.totalPriceTextbox = new System.Windows.Forms.TextBox();
             this.totalPriceLabel = new System.Windows.Forms.Label();
-            this.refreshBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.purchaseGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,18 +131,18 @@
             // 
             // Edit
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.NullValue = "EDIT";
-            this.Edit.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = "EDIT";
+            this.Edit.DefaultCellStyle = dataGridViewCellStyle1;
             this.Edit.HeaderText = "Edit";
             this.Edit.Name = "Edit";
             this.Edit.Text = "EDIT";
             // 
             // Delete
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.NullValue = "DELETE";
-            this.Delete.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = "DELETE";
+            this.Delete.DefaultCellStyle = dataGridViewCellStyle2;
             this.Delete.HeaderText = "Delete";
             this.Delete.Name = "Delete";
             this.Delete.Text = "DELETE";
@@ -200,22 +199,11 @@
             this.totalPriceLabel.TabIndex = 15;
             this.totalPriceLabel.Text = "ราคาสุทธิ";
             // 
-            // refreshBtn
-            // 
-            this.refreshBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshBtn.Location = new System.Drawing.Point(342, 31);
-            this.refreshBtn.Name = "refreshBtn";
-            this.refreshBtn.Size = new System.Drawing.Size(89, 30);
-            this.refreshBtn.TabIndex = 16;
-            this.refreshBtn.Text = "Refresh";
-            this.refreshBtn.UseVisualStyleBackColor = true;
-            // 
             // PurchaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 463);
-            this.Controls.Add(this.refreshBtn);
             this.Controls.Add(this.totalPriceLabel);
             this.Controls.Add(this.totalPriceTextbox);
             this.Controls.Add(this.cancelBtn);
@@ -252,6 +240,5 @@
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
         private System.Windows.Forms.TextBox totalPriceTextbox;
         private System.Windows.Forms.Label totalPriceLabel;
-        private System.Windows.Forms.Button refreshBtn;
     }
 }
